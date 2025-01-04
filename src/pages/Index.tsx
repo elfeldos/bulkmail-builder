@@ -42,7 +42,7 @@ const Index = () => {
     toast.info("Sending emails...");
 
     try {
-      const response = await fetch("https://bulkmail-builder.onrender.com/api/send-emails", {
+      const response = await fetch("https://bulkmailserver-jxku.onrender.com/api/send-emails", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
