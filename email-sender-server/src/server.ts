@@ -9,7 +9,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: ["https://bulkmail-builder.vercel.app", "http://localhost:3000", "https://bulkmail-builder-k8p3eijw9-elfeldos-projects.vercel.app/"],
+    origin: ["https://bulkmail-builder.vercel.app", "http://localhost:3000", "https://bulkmail-builder-k8p3eijw9-elfeldos-projects.vercel.app"],
     methods: ["POST"],
     allowedHeaders: ["Content-Type"],
   })
