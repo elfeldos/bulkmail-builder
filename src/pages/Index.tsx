@@ -7,6 +7,9 @@ import { Card } from '@/components/ui/card';
 import { toast } from 'sonner';
 import { Mail } from 'lucide-react';
 
+
+
+
 interface SmtpConfig {
   host: string;
   port: string;
