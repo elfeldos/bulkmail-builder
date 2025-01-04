@@ -1,14 +1,12 @@
-import { useState } from 'react';
-import { FileUpload } from '@/components/FileUpload';
-import { EmailTemplate } from '@/components/EmailTemplate';
-import { SmtpConfig } from '@/components/SmtpConfig';
-import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
-import { toast } from 'sonner';
-import { Mail } from 'lucide-react';
-
-
-
+import { useState } from "react";
+import { FileUpload } from "@/components/FileUpload";
+import { EmailTemplate } from "@/components/EmailTemplate";
+import { SmtpConfig } from "@/components/SmtpConfig";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { toast } from "sonner";
+import { Mail } from "lucide-react";
+import { Footer } from "@/components/ui/footer";
 
 interface SmtpConfig {
   host: string;
@@ -20,8 +18,8 @@ interface SmtpConfig {
 
 const Index = () => {
   const [csvData, setCsvData] = useState<Array<Record<string, string>>>([]);
-  const [emailSubject, setEmailSubject] = useState('');
-  const [emailBody, setEmailBody] = useState('');
+  const [emailSubject, setEmailSubject] = useState("");
+  const [emailBody, setEmailBody] = useState("");
   const [smtpConfig, setSmtpConfig] = useState<SmtpConfig | null>(null);
 
   const handleFileUpload = (data: Array<Record<string, string>>) => {
@@ -35,36 +33,38 @@ const Index = () => {
 
   const handleSendEmails = async () => {
     if (!csvData.length || !emailSubject || !emailBody || !smtpConfig) {
-      toast.error('Please fill in all fields and SMTP configuration before sending');
+      toast.error(
+        "Please fill in all fields and SMTP configuration before sending"
+      );
       return;
     }
 
-    toast.info('Sending emails...');
-    
+    toast.info("Sending emails...");
+
     try {
-      const response = await fetch('/api/send-emails', {
-        method: 'POST',
+      const response = await fetch("https://bulkmail-builder.onrender.com/api/send-emails", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           recipients: csvData,
           subject: emailSubject,
           body: emailBody,
-          smtp: smtpConfig
+          smtp: smtpConfig,
         }),
       });
 
       const data = await response.json();
-      
+
       if (data.success) {
         toast.success(`Successfully sent ${csvData.length} emails`);
       } else {
-        toast.error('Failed to send emails: ' + data.message);
+        toast.error("Failed to send emails: " + data.message);
       }
     } catch (error) {
-      console.error('Error:', error);
-      toast.error('Error sending emails');
+      console.error("Error:", error);
+      toast.error("Error sending emails");
     }
   };
 
@@ -79,8 +79,9 @@ const Index = () => {
             Bulk Email Sender
           </h1>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Upload your CSV file with contact details, customize your email template,
-            and send personalized emails to your entire list in seconds.
+            Upload your CSV file with contact details, customize your email
+            template, and send personalized emails to your entire list in
+            seconds.
           </p>
         </div>
 
@@ -98,7 +99,9 @@ const Index = () => {
           </Card>
 
           <Card className="p-6">
-            <h2 className="text-xl font-semibold mb-4">2. Create Email Template</h2>
+            <h2 className="text-xl font-semibold mb-4">
+              2. Create Email Template
+            </h2>
             <EmailTemplate
               onTemplateChange={handleTemplateChange}
               availableVariables={csvData.length ? Object.keys(csvData[0]) : []}
@@ -109,13 +112,16 @@ const Index = () => {
             <Button
               size="lg"
               onClick={handleSendEmails}
-              disabled={!csvData.length || !emailSubject || !emailBody || !smtpConfig}
+              disabled={
+                !csvData.length || !emailSubject || !emailBody || !smtpConfig
+              }
             >
               Send Emails
             </Button>
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };
