@@ -72,17 +72,25 @@ const Index = () => {
     <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
       <div className="container mx-auto px-4 py-12">
         <div className="text-center mb-12">
-          <div className="flex items-center justify-center mb-6">
-            <Mail className="w-12 h-12 text-primary" />
-          </div>
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">
-            Bulk Email Sender
+          <h1 className="text-4xl font-bold text-gray-900 mb-16">
+            <span className="text-primary">Send</span> Bulk Emails from your <br/> Mailadress for <span className="underline">free</span>.
           </h1>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-20">
             Upload your CSV file with contact details, customize your email
             template, and send personalized emails to your entire list in
             seconds.
           </p>
+          <div className="grid grid-cols-3 max-w-4xl mx-auto bg-primary py-4 rounded-md">
+            <div>✅ for free</div>
+            <div>🚫 no data storage</div>
+            <div>👤 no login needed</div>
+          </div>
+          <div className="py-20">
+            <h2 className="text-md font-semibold ">This is how it works:</h2>
+            <div>1. Fill in your data</div>
+            <div>2. Upload your csv with necessary data</div>
+            <div>3. Write your E-Mail</div>
+          </div>
         </div>
 
         <div className="max-w-4xl mx-auto space-y-8">
