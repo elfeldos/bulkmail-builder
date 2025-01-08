@@ -22,6 +22,7 @@ export default {
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
 				ring: 'hsl(var(--ring))',
+				buttonhover: 'hsl(var(--button-hover))',
 				frederik: 'hsl(var(--frederik))',
 				background: 'hsl(var(--background))',
 				foreground: 'hsl(var(--foreground))',

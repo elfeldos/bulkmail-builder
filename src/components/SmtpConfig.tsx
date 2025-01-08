@@ -145,7 +145,7 @@ export const SmtpConfig = ({ onConfigSave }: SmtpConfigProps) => {
             placeholder="your@email.com"
           />
         </div>
-        <Button type="submit" className="text-black">Save SMTP Configuration</Button>
+        <Button type="submit" className="text-black border-2 border-white hover:border-2 hover:border-primary hover:bg-white">Save SMTP Configuration</Button>
       </form>
     </Card>
   );

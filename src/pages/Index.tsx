@@ -133,7 +133,7 @@ const Index = () => {
             <Button
               size="lg"
               onClick={handleSendEmails}
-              className="text-black"
+              className="text-black border-2 border-white hover:border-2 hover:border-primary hover:bg-white"
               disabled={
                 !csvData.length || !emailSubject || !emailBody || !smtpConfig
               }
