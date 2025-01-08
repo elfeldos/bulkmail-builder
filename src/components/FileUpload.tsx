@@ -63,7 +63,7 @@ export const FileUpload = ({ onFileUpload }: FileUploadProps) => {
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
     >
-      <Upload className="w-12 h-12 mx-auto mb-4 text-gray-400" />
+      <Upload className="w-7 h-7 mx-auto mb-4 text-gray-400" />
       <h3 className="mb-2 text-lg font-semibold">Drop your CSV file here</h3>
       <p className="mb-4 text-sm text-gray-500">or</p>
       <Button

@@ -69,9 +69,9 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
+    <div className="min-h-screen bg-frederik">
       <div className="container mx-auto px-4 py-12">
-        <div className="text-center mb-12">
+        <div className="text-center">
           <h1 className="text-4xl font-bold text-gray-900 mb-16">
             <span className="text-primary">Send</span> Bulk Emails from your <br/> Mailadress for <span className="underline">free</span>.
           </h1>
@@ -80,24 +80,37 @@ const Index = () => {
             template, and send personalized emails to your entire list in
             seconds.
           </p>
-          <div className="grid grid-cols-3 max-w-4xl mx-auto bg-primary py-4 rounded-md">
+          <div className="grid grid-cols-3 max-w-4xl mx-auto bg-white border-2 border-primary py-4 rounded-md">
             <div>✅ for free</div>
             <div>🚫 no data storage</div>
             <div>👤 no login needed</div>
           </div>
-          <div className="py-20">
-            <h2 className="text-md font-semibold ">This is how it works:</h2>
-            <div>1. Fill in your data</div>
-            <div>2. Upload your csv with necessary data</div>
-            <div>3. Write your E-Mail</div>
+          <div className="py-20 max-w-4xl mx-auto">
+            <h2 className="text-xl font-semibold mb-6">This is how it works</h2>
+            <div className="grid grid-cols-3 gap-4"> 
+            <Card className="w-auto p-6">
+              <h1 className="text-md font-semibold py-2">1. Fill in data</h1>
+              <div>Choose your Email provider, state your Email address you want to send the mails from and type in your password (This is not your regular password).</div>
+            </Card>
+            <Card className="w-auto p-6">
+              <h1 className="text-md font-semibold py-2">2. Upload csv containing data</h1>
+              <div>Upload your file as in the csv format containing the colum descriptions in row one. The program will extract them automatically.</div>
+            </Card>
+            <Card className="w-auto p-6">
+              <h1 className="text-md font-semibold py-2">3. Write Email</h1>
+              <div>Choose your subject, type in your text (click on the variable to insert it into the text) and bulk-send your Email to the contacts in your csv.</div>
+            </Card>
+              
+            </div>
           </div>
         </div>
 
         <div className="max-w-4xl mx-auto space-y-8">
+          <h2 className="text-xl text-center font-semibold mb-6">Let's get crackin'</h2>
           <SmtpConfig onConfigSave={setSmtpConfig} />
 
           <Card className="p-6">
-            <h2 className="text-xl font-semibold mb-4">1. Upload Contacts</h2>
+            <h2 className="text-xl font-semibold mb-4">2. Upload your csv file</h2>
             <FileUpload onFileUpload={handleFileUpload} />
             {csvData.length > 0 && (
               <p className="mt-4 text-sm text-gray-600">
@@ -108,7 +121,7 @@ const Index = () => {
 
           <Card className="p-6">
             <h2 className="text-xl font-semibold mb-4">
-              2. Create Email Template
+              3. Configure and send your mail 
             </h2>
             <EmailTemplate
               onTemplateChange={handleTemplateChange}
@@ -120,6 +133,7 @@ const Index = () => {
             <Button
               size="lg"
               onClick={handleSendEmails}
+              className="text-black"
               disabled={
                 !csvData.length || !emailSubject || !emailBody || !smtpConfig
               }

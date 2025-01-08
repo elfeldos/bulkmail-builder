@@ -44,7 +44,7 @@ export const SmtpConfig = ({ onConfigSave }: SmtpConfigProps) => {
 
   return (
     <Card className="p-6">
-      <h2 className="text-xl font-semibold mb-4">SMTP Configuration</h2>
+      <h2 className="text-xl font-semibold mb-4">1. Fill in your Data</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <Label htmlFor="host">SMTP Host</Label>
@@ -145,7 +145,7 @@ export const SmtpConfig = ({ onConfigSave }: SmtpConfigProps) => {
             placeholder="your@email.com"
           />
         </div>
-        <Button type="submit">Save SMTP Configuration</Button>
+        <Button type="submit" className="text-black">Save SMTP Configuration</Button>
       </form>
     </Card>
   );
