@@ -79,37 +79,36 @@ const Index = () => {
              }}>
         </div>
       </div>
-      <div className="container relative mx-auto px-4 py-12">
+      <div className="container relative mx-auto px-4 pt-12 pb-6">
         <div className="text-center">
-          <h1 className="text-5xl font-bold text-gray-900 mb-16">
-            <span className="text-primary">Send</span> Bulk Emails from your <br/> Mailadress for <span className="underline">free</span>.
+          <h1 className="text-3xl md:text-5xl font-bold text-gray-900 mb-16">
+            <span className="text-primary">Send</span> Bulk-Emails from your <br/> Mailadress for <span className="underline">free</span>.
           </h1>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-20">
             Upload your CSV file with contact details, customize your email
             template, and send personalized emails to your entire list in
             seconds.
           </p>
-          <div className="grid grid-cols-3 max-w-4xl mx-auto bg-white border-2 border-primary py-4 rounded-md">
-            <div>✅ for free</div>
-            <div>🚫 no data storage</div>
-            <div>👤 no login needed</div>
+          <div className="grid grid-cols-3 max-w-4xl mx-auto bg-white border-2 border-inline border-primary py-4 rounded-md">
+            <div className="text-pretty">✅ send mails for free</div>
+            <div className="text-pretty">🚫 none of your data stored</div>
+            <div className="text-pretty">👤 no login needed</div>
           </div>
-          <div className="py-20 max-w-4xl mx-auto grid-auto-rows">
+          <div className="py-20 max-w-4xl mx-auto">
             <h2 className="text-xl font-semibold mb-6">This is how it works</h2>
-            <div className="grid grid-cols-3 gap-4"> 
-            <Card className="w-auto p-6">
-              <h1 className="text-md font-semibold py-2">1. Fill in data</h1>
-              <div>Choose your Email provider, state your Email address you want to send the mails from and type in your password (This is not your regular password).</div>
-            </Card>
-            <Card className="w-auto p-6">
-              <h1 className="text-md font-semibold py-2">2. Upload csv containing data</h1>
-              <div>Upload your file as in the csv format containing the colum descriptions in row one. The program will extract them automatically.</div>
-            </Card>
-            <Card className="w-auto p-6">
-              <h1 className="text-md font-semibold py-2">3. Write Email</h1>
-              <div>Choose your subject, type in your text (click on the variable to insert it into the text) and bulk-send your Email to the contacts in your csv.</div>
-            </Card>
-              
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4"> 
+              <Card className="w-auto pb-6 pt-4 px-6">
+                <h1 className="text-md font-semibold py-2">1. Fill in data</h1>
+                <div>Choose your Email provider, state your Email address you want to send the mails from and type in your password (This is not your regular password).</div>
+              </Card>
+              <Card className="w-auto pb-6 pt-4 px-6">
+                <h1 className="text-md font-semibold py-2">2. Upload csv containing data</h1>
+                <div>Upload your file as in the csv format containing the colum descriptions in row one. The program will extract them automatically.</div>
+              </Card>
+              <Card className="w-auto pb-6 pt-4 px-6">
+                <h1 className="text-md font-semibold py-2">3. Write Email</h1>
+                <div>Choose your subject, type in your text (click on the variable to insert it into the text) and bulk-send your Email to the contacts in your csv.</div>
+              </Card>
             </div>
           </div>
         </div>
@@ -148,7 +147,7 @@ const Index = () => {
             <Button
               size="lg"
               onClick={handleSendEmails}
-              className="text-black border-2 border-white ghover:border-2 hover:border-primary hover:bg-white"
+              className="text-black border-2 border-white hover:border-2 hover:border-primary hover:bg-white"
               disabled={
                 !csvData.length || !emailSubject || !emailBody || !smtpConfig
               }
@@ -157,8 +156,8 @@ const Index = () => {
             </Button>
           </div>
         </div>
+        <Footer />
       </div>
-      <Footer />
     </div>
   );
 };
