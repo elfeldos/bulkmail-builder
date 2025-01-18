@@ -69,8 +69,16 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-frederik">
-      <div className="container mx-auto px-4 py-12">
+    <div className="min-h-screen bg-frederik relative">
+      <div className="absolute inset-0 bg-frederik">
+        <div className="absolute inset-0 bg-grid-slate-200/[0.2] bg-[size:40px_40px] [mask-image:linear-gradient(to_bottom,transparent,black,transparent)]" 
+             style={{
+               backgroundImage: `linear-gradient(to right, #e5e8ec 1px, transparent 1px),
+                               linear-gradient(to bottom, #e5e8ec 1px, transparent 1px)`
+             }}>
+        </div>
+      </div>
+      <div className="container relative mx-auto px-4 py-12">
         <div className="text-center">
           <h1 className="text-4xl font-bold text-gray-900 mb-16">
             <span className="text-primary">Send</span> Bulk Emails from your <br/> Mailadress for <span className="underline">free</span>.
@@ -133,7 +141,7 @@ const Index = () => {
             <Button
               size="lg"
               onClick={handleSendEmails}
-              className="text-black border-2 border-white hover:border-2 hover:border-primary hover:bg-white"
+              className="text-black border-2 border-white ghover:border-2 hover:border-primary hover:bg-white"
               disabled={
                 !csvData.length || !emailSubject || !emailBody || !smtpConfig
               }
