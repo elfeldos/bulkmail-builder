@@ -7,6 +7,7 @@ import { Card } from "@/components/ui/card";
 import { toast } from "sonner";
 import { Mail } from "lucide-react";
 import { Footer } from "@/components/ui/footer";
+import { motion } from "motion/react";
 
 interface SmtpConfig {
   host: string;
@@ -71,7 +72,7 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-frederik relative">
       <div className="absolute inset-0 bg-frederik">
-        <div className="absolute inset-0 bg-grid-slate-200/[0.2] bg-[size:40px_40px] [mask-image:linear-gradient(to_bottom,transparent,black,transparent)]" 
+        <div className="absolute inset-0 bg-[size:40px_40px] [mask-image:linear-gradient(to_bottom,transparent,black,transparent)]" 
              style={{
                backgroundImage: `linear-gradient(to right, #e5e8ec 1px, transparent 1px),
                                linear-gradient(to bottom, #e5e8ec 1px, transparent 1px)`
@@ -80,7 +81,7 @@ const Index = () => {
       </div>
       <div className="container relative mx-auto px-4 py-12">
         <div className="text-center">
-          <h1 className="text-4xl font-bold text-gray-900 mb-16">
+          <h1 className="text-5xl font-bold text-gray-900 mb-16">
             <span className="text-primary">Send</span> Bulk Emails from your <br/> Mailadress for <span className="underline">free</span>.
           </h1>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-20">
@@ -93,7 +94,7 @@ const Index = () => {
             <div>🚫 no data storage</div>
             <div>👤 no login needed</div>
           </div>
-          <div className="py-20 max-w-4xl mx-auto">
+          <div className="py-20 max-w-4xl mx-auto grid-auto-rows">
             <h2 className="text-xl font-semibold mb-6">This is how it works</h2>
             <div className="grid grid-cols-3 gap-4"> 
             <Card className="w-auto p-6">
@@ -114,28 +115,34 @@ const Index = () => {
         </div>
 
         <div className="max-w-4xl mx-auto space-y-8">
-          <h2 className="text-xl text-center font-semibold mb-6">Let's get crackin'</h2>
-          <SmtpConfig onConfigSave={setSmtpConfig} />
+          <motion.div className="div" initial={{ opacity: 0, }} transition={{ duration: 0.5, ease: "easeIn" }} whileInView={{ opacity: 1, }} viewport={{ margin: "-200px", once: true,}}>
+            <h2 className="text-xl text-center font-semibold mb-6">Let's get crackin'</h2>
+            <SmtpConfig onConfigSave={setSmtpConfig} />
+          </motion.div>
 
-          <Card className="p-6">
-            <h2 className="text-xl font-semibold mb-4">2. Upload your csv file</h2>
-            <FileUpload onFileUpload={handleFileUpload} />
-            {csvData.length > 0 && (
-              <p className="mt-4 text-sm text-gray-600">
-                ✓ Loaded {csvData.length} contacts
-              </p>
-            )}
-          </Card>
-
-          <Card className="p-6">
-            <h2 className="text-xl font-semibold mb-4">
-              3. Configure and send your mail 
-            </h2>
-            <EmailTemplate
-              onTemplateChange={handleTemplateChange}
-              availableVariables={csvData.length ? Object.keys(csvData[0]) : []}
-            />
-          </Card>
+          <motion.div className="div" initial={{ opacity: 0, }} transition={{ duration: 0.5, ease: "easeIn" }} whileInView={{ opacity: 1, }} viewport={{ margin: "-200px", once: true,}}>
+            <Card className="p-6">
+              <h2 className="text-xl font-semibold mb-4">2. Upload your csv file</h2>
+              <FileUpload onFileUpload={handleFileUpload} />
+              {csvData.length > 0 && (
+                <p className="mt-4 text-sm text-gray-600">
+                  ✓ Loaded {csvData.length} contacts
+                </p>
+              )}
+            </Card>
+          </motion.div>
+          
+          <motion.div className="div" initial={{ opacity: 0, }} transition={{ duration: 0.5, ease: "easeIn" }} whileInView={{ opacity: 1, }} viewport={{ margin: "-200px", once: true,}}>
+            <Card className="p-6">
+              <h2 className="text-xl font-semibold mb-4">
+                3. Configure and send your mail 
+              </h2>
+              <EmailTemplate
+                onTemplateChange={handleTemplateChange}
+                availableVariables={csvData.length ? Object.keys(csvData[0]) : []}
+              />
+            </Card>
+          </motion.div>
 
           <div className="text-center">
             <Button
