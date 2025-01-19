@@ -114,12 +114,12 @@ const Index = () => {
         </div>
 
         <div className="max-w-4xl mx-auto space-y-8">
-          <motion.div className="div" initial={{ opacity: 0, }} transition={{ duration: 0.5, ease: "easeIn" }} whileInView={{ opacity: 1, }} viewport={{ margin: "-200px", once: true,}}>
+          <motion.div className="div" initial={{ opacity: 0, }} transition={{ duration: 0.5, ease: "easeIn" }} whileInView={{ opacity: 1, }} viewport={{ amount: 0.3, once: true,}}>
             <h2 className="text-xl text-center font-semibold mb-6">Let's get crackin'</h2>
             <SmtpConfig onConfigSave={setSmtpConfig} />
           </motion.div>
 
-          <motion.div className="div" initial={{ opacity: 0, }} transition={{ duration: 0.5, ease: "easeIn" }} whileInView={{ opacity: 1, }} viewport={{ margin: "-200px", once: true,}}>
+          <motion.div className="div" initial={{ opacity: 0, }} transition={{ duration: 0.5, ease: "easeIn" }} whileInView={{ opacity: 1, }} viewport={{ amount: 0.3, once: true,}}>
             <Card className="p-6">
               <h2 className="text-xl font-semibold mb-4">2. Upload your csv file</h2>
               <FileUpload onFileUpload={handleFileUpload} />
@@ -131,7 +131,7 @@ const Index = () => {
             </Card>
           </motion.div>
           
-          <motion.div className="div" initial={{ opacity: 0, }} transition={{ duration: 0.5, ease: "easeIn" }} whileInView={{ opacity: 1, }} viewport={{ margin: "-200px", once: true,}}>
+          <motion.div className="div" initial={{ opacity: 0, }} transition={{ duration: 0.5, ease: "easeIn" }} whileInView={{ opacity: 1, }} viewport={{ amount: 0.3, once: true,}}>
             <Card className="p-6">
               <h2 className="text-xl font-semibold mb-4">
                 3. Configure and send your mail 
