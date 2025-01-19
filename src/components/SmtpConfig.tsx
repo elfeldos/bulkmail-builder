@@ -4,6 +4,7 @@ import { Label } from "@/components/ui/label";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 interface SmtpConfig {
   host: string;
@@ -13,11 +14,51 @@ interface SmtpConfig {
   from: string;
 }
 
+const smtpProviders = {
+  gmail: "smtp.gmail.com",
+  outlook: "smtp.office365.com",
+  yahoo: "smtp.mail.yahoo.com",
+  custom: "custom"
+} as const;
+
+const smtpConfigs: Record<SmtpProvider, SmtpMapping> = {
+  gmail: {
+    host: "smtp.gmail.com",
+    port: "587",
+    secure: false
+  },
+  outlook: {
+    host: "smtp.office365.com",
+    port: "587",
+    secure: false
+  },
+  yahoo: {
+    host: "smtp.mail.yahoo.com",
+    port: "587",
+    secure: false
+  },
+  custom: {
+    host: "",
+    port: "587",
+    secure: false
+  }
+};
+
+type SmtpProvider = keyof typeof smtpProviders;
+
 interface SmtpConfigProps {
   onConfigSave: (config: SmtpConfig) => void;
 }
 
+interface SmtpMapping {
+  host: string;
+  port: string;
+  secure: boolean;
+}
+
 export const SmtpConfig = ({ onConfigSave }: SmtpConfigProps) => {
+  const [selectedProvider, setSelectedProvider] = useState<SmtpProvider>("gmail");
+  const [customHost, setCustomHost] = useState("");
   const [config, setConfig] = useState<SmtpConfig>({
     host: "",
     port: "587",
@@ -25,6 +66,24 @@ export const SmtpConfig = ({ onConfigSave }: SmtpConfigProps) => {
     password: "",
     from: "",
   });
+
+  const handleProviderChange = (value: SmtpProvider) => {
+    setSelectedProvider(value);
+    if (value !== "custom") {
+      setConfig({
+        ...config,
+        ...smtpConfigs[value]
+      });
+    }
+  };
+
+  const handleCustomHostChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCustomHost(e.target.value);
+    setConfig({
+      ...config,
+      host: e.target.value
+    });
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -47,25 +106,41 @@ export const SmtpConfig = ({ onConfigSave }: SmtpConfigProps) => {
       <h2 className="text-xl font-semibold mb-4">1. Fill in your Data</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <Label htmlFor="host">SMTP Host</Label>
-          <Input
-            id="host"
-            value={config.host}
-            onChange={(e) => setConfig({ ...config, host: e.target.value })}
-            placeholder="smtp.gmail.com"
-          />
+          <Label htmlFor="port">SMTP Port: 587</Label>
         </div>
         <div>
-          <Label htmlFor="port">SMTP Port</Label>
-          <Input
-            id="port"
-            value={config.port}
-            onChange={(e) => setConfig({ ...config, port: e.target.value })}
-            placeholder="587"
-          />
+          <Label htmlFor="host">E-Mail Provider</Label>
+          <Select
+            value={selectedProvider}
+            onValueChange={(value: SmtpProvider) => handleProviderChange(value)}
+          >
+            <SelectTrigger>
+              <SelectValue placeholder="Select your email provider" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="gmail">Gmail</SelectItem>
+              <SelectItem value="outlook">Outlook/Office 365</SelectItem>
+              <SelectItem value="yahoo">Yahoo Mail</SelectItem>
+              <SelectItem value="custom">Custom SMTP Server</SelectItem>
+            </SelectContent>
+          </Select>
         </div>
+
+        {/* Show custom host input only when custom is selected */}
+        {selectedProvider === "custom" && (
+          <div className="mt-4">
+            <Label htmlFor="customHost">Custom SMTP Host</Label>
+            <Input
+              id="customHost"
+              value={customHost}
+              onChange={handleCustomHostChange}
+              placeholder="Enter your SMTP server address"
+            />
+          </div>
+        )}
+
         <div>
-          <Label htmlFor="username">Username</Label>
+          <Label htmlFor="username">E-Mail</Label>
           <Input
             id="username"
             value={config.username}
