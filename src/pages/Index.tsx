@@ -40,6 +40,17 @@ const Index = () => {
       return;
     }
 
+    // console.log('Subject template:', emailSubject);
+    // console.log('Sample recipient:', csvData[0]);
+
+    // const requestData = {
+    //   recipients: csvData,
+    //   subject: emailSubject,
+    //   body: emailBody,
+    //   smtp: smtpConfig,
+    // };
+    // console.log('Request data:', requestData);
+
     toast.info("Sending emails...");
 
     try {

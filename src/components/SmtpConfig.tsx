@@ -214,15 +214,6 @@ export const SmtpConfig = ({ onConfigSave }: SmtpConfigProps) => {
             </div>
           </div>
         </div>
-        {/* <div>
-          <Label htmlFor="from">From Email</Label>
-          <Input
-            id="from"
-            value={config.from}
-            onChange={(e) => setConfig({ ...config, from: e.target.value })}
-            placeholder="your@email.com"
-          />
-        </div> */}
         <Button type="submit" className="text-black border-2 border-white hover:border-2 hover:border-primary hover:bg-white">Save SMTP Configuration</Button>
       </form>
     </Card>
