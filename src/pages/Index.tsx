@@ -14,7 +14,7 @@ interface SmtpConfig {
   port: string;
   username: string;
   password: string;
-  from: string;
+  // from: string;
 }
 
 const Index = () => {

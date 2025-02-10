@@ -11,7 +11,7 @@ interface SmtpConfig {
   port: string;
   username: string;
   password: string;
-  from: string;
+  // from: string;
 }
 
 const smtpProviders = {
@@ -64,7 +64,7 @@ export const SmtpConfig = ({ onConfigSave }: SmtpConfigProps) => {
     port: "587",
     username: "",
     password: "",
-    from: "",
+    // from: "",
   });
 
   const handleProviderChange = (value: SmtpProvider) => {
@@ -85,15 +85,18 @@ export const SmtpConfig = ({ onConfigSave }: SmtpConfigProps) => {
     });
   };
 
+  const isConfigValid = () => {
+    return(
+      config.host.length > 0 &&
+      config.username.length > 0 &&
+      config.password.length > 0 &&
+      config.port.length > 0
+    )
+  }
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (
-      !config.host ||
-      !config.port ||
-      !config.username ||
-      !config.password ||
-      !config.from
-    ) {
+    if (!isConfigValid()) {
       toast.error("Please fill in all SMTP fields");
       return;
     }
@@ -211,7 +214,7 @@ export const SmtpConfig = ({ onConfigSave }: SmtpConfigProps) => {
             </div>
           </div>
         </div>
-        <div>
+        {/* <div>
           <Label htmlFor="from">From Email</Label>
           <Input
             id="from"
@@ -219,7 +222,7 @@ export const SmtpConfig = ({ onConfigSave }: SmtpConfigProps) => {
             onChange={(e) => setConfig({ ...config, from: e.target.value })}
             placeholder="your@email.com"
           />
-        </div>
+        </div> */}
         <Button type="submit" className="text-black border-2 border-white hover:border-2 hover:border-primary hover:bg-white">Save SMTP Configuration</Button>
       </form>
     </Card>
