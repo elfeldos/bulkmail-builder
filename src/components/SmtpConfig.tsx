@@ -11,14 +11,57 @@ interface SmtpConfig {
   port: string;
   username: string;
   password: string;
-  // from: string;
 }
 
 const smtpProviders = {
-  gmail: "smtp.gmail.com",
-  outlook: "smtp.office365.com",
-  yahoo: "smtp.mail.yahoo.com",
-  custom: "custom"
+  gmail: {
+    host: "smtp.gmail.com",
+    instructions: {
+      title: "Gmail SMTP Password Setup Instructions",
+      steps: [
+      "1. Go to https://myaccount.google.com/apppassword",
+      "2. Choose name of Connection",
+      "3. Use the generated 16-character password as your SMTP password"
+      ]
+    } 
+  },
+  outlook: {
+    host: "smtp.office365.com",
+    instructions: {
+      title: "Outlook/Office 365 SMTP Password Setup Instructions",
+      steps: [ 
+      "1. Go to https://account.live.com/proofs/AppPassword",
+      "2. Create an app password",
+      "3. Use your email and the generated app password"
+      ]
+    }
+  },
+  yahoo: {
+    host: "smtp.mail.yahoo.com",
+    instructions: {
+      title: "Yahoo Mail SMTP Password Setup Instructions",
+      steps: [
+      "1. Go to Yahoo Account Security settings",
+      "2. Enable 2-Step Verification",
+      "3. Generate an App Password",
+      "4. Select 'Other App' → Enter a name",
+      "5. Use the generated password for SMTP"
+      ]
+    }
+  },
+  custom: {
+    host: "custom",
+    instructions: {
+      title: "Instructions for your individual SMTP Setup",
+      steps: [
+      "1. Enter your SMTP server address",
+      "2. Use port 587 for TLS",
+      "3. Enter your full email address",
+      "4. Use your email password or app-specific password",
+      "5. Contact your email provider for specific settings"
+      ]
+    }
+  },
 } as const;
 
 const smtpConfigs: Record<SmtpProvider, SmtpMapping> = {
@@ -58,13 +101,12 @@ interface SmtpMapping {
 
 export const SmtpConfig = ({ onConfigSave }: SmtpConfigProps) => {
   const [selectedProvider, setSelectedProvider] = useState<SmtpProvider>("gmail");
-  const [customHost, setCustomHost] = useState("");
+  const [customHost, setCustomHost] = useState(" ");
   const [config, setConfig] = useState<SmtpConfig>({
     host: "",
     port: "587",
     username: "",
     password: "",
-    // from: "",
   });
 
   const handleProviderChange = (value: SmtpProvider) => {
@@ -161,56 +203,64 @@ export const SmtpConfig = ({ onConfigSave }: SmtpConfigProps) => {
             placeholder="Enter SMTP password"
           />
           <div className="mt-2 text-sm text-gray-600">
-            <p className="font-medium mb-1">Password Instructions:</p>
+            {/* <p className="font-medium mb-1">Password Instructions:</p> */}
             <div className="space-y-2">
-              <details className="cursor-pointer">
-                <summary className="font-medium">Gmail</summary>
-                <ol className="pl-4 mt-1 list-decimal">
-                  <li>Enable 2-Step Verification in Google Account</li>
-                  <li>
-                    Generate App Password at{" "}
-                    <a
-                      href="https://myaccount.google.com/apppasswords"
-                      target="_blank"
-                      className="text-primary hover:underline"
-                    >
-                      Google App Passwords
-                    </a>
-                  </li>
-                </ol>
-              </details>
+              
+            {selectedProvider && (
+              <div className="mt-4 p-4 bg-muted rounded-lg">
+                <h3 className="font-medium mb-2">
+                  {smtpProviders[selectedProvider]['instructions'].title}
+                </h3>
+                <ul className="space-y-2">
+                  {smtpProviders[selectedProvider]['instructions'].steps.map((step, index) => (
+                    <li key={index} className="text-sm text-muted-foreground">
+                      {step}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
 
-              <details className="cursor-pointer">
-                <summary className="font-medium">Outlook/Office 365</summary>
-                <ol className="pl-4 mt-1 list-decimal">
-                  <li>Enable 2-Step Verification in Microsoft Account</li>
-                  <li>
-                    Generate App Password at{" "}
-                    <a
-                      href="https://account.live.com/proofs/AppPassword"
-                      target="_blank"
-                      className="text-primary hover:underline"
-                    >
-                      Microsoft Security
-                    </a>
-                  </li>
-                </ol>
-              </details>
+            {/* SMTP Configuration fields
+            {selectedProvider && (
+              <div className="space-y-4 mt-4">
+                <div>
+                  <Label htmlFor="username">Email/Username</Label>
+                  <Input
+                    id="username"
+                    value={config.username}
+                    onChange={(e) => setConfig({ ...config, username: e.target.value })}
+                    placeholder={selectedProvider === 'gmail' ? 'your.email@gmail.com' : 'your.email@domain.com'}
+                  />
+                </div>
+                
+                <div>
+                  <Label htmlFor="password">
+                    {selectedProvider === 'custom' ? 'Password' : 'App Password'}
+                  </Label>
+                  <Input
+                    id="password"
+                    type="password"
+                    value={config.password}
+                    onChange={(e) => setConfig({ ...config, password: e.target.value })}
+                    placeholder="Enter your password"
+                  />
+                </div>
 
-              <details className="cursor-pointer">
-                <summary className="font-medium">Yahoo Mail</summary>
-                <ol className="pl-4 mt-1 list-decimal">
-                  <li>Enable 2-Step Verification in Yahoo Account</li>
-                  <li>Generate App Password in Account Security settings</li>
-                </ol>
-              </details>
+                {selectedProvider === 'custom' && (
+                  <div>
+                    <Label htmlFor="host">SMTP Host</Label>
+                    <Input
+                      id="host"
+                      value={config.host}
+                      onChange={(e) => setConfig({ ...config, host: e.target.value })}
+                      placeholder="smtp.yourdomain.com"
+                    />
+                  </div>
+                )}
+              </div>
+            )} */}
 
-              <details className="cursor-pointer">
-                <summary className="font-medium">Custom SMTP Server</summary>
-                <p className="pl-4 mt-1">
-                  Use the SMTP password provided by your email service provider
-                </p>
-              </details>
             </div>
           </div>
         </div>
