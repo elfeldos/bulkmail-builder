@@ -1,23 +1,30 @@
-# Welcome to your Lovable project
+# Welcome to Bulkmail Builder
+
 
 ## Project info
 
-**URL**: https://lovable.dev/projects/900ca18c-95e7-40bb-88ad-e754b7b978ff
+**URL**: https://bulkmail-builder-aw6l.vercel.app/
 
-## How can I edit this code?
+**TL;DR**:
+Send Bulk-Emails from your Mailadress for free. Upload your CSV file with contact details, customize your email template, and send personalized emails to your entire list in seconds. <ins>No login & for free</ins>.
 
-There are several ways of editing your application.
+
+## Description
+
+Why?
+We were involved in a couple of NGO's and NPO's and noticed that, while these organizations buy "professional" Email Accounts and CRM's/ERP's for their needs, money for an Email-Sending Tool is usually not spent because of the expensiveness of these tools (cost & benefit). Therefore, we (and probably many others) need(ed) to export the contacts from the CRM/ERP as csv file and copy paste the desired data into our Email-Client individually by hand. This not only took/takes an unnecessary amount of time, but also leaves no room for customization. Our tool solves all the problems described above.
+
+How?
+With the Bulkmail-Builder, you can send up to 1000 Emails (depending on your Email-Provider) at once, by:
+1. Stating your information such as Email-Provider, Email-Adress and your Password.
+2. Upload a csv-file with your desired recipients. It's best to have at least the Email-Adress and Name of these stated in the file.
+3. Write your subject and text. Here, you can use all columns present in the file as variables (e.g. state the first name in the greeting automatically). Optionally, you can also add an attachment (up to 5MB).
+
+We DO NOT save any of this data.
 
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/900ca18c-95e7-40bb-88ad-e754b7b978ff) and start prompting.
+## How can you use this code?
 
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
 
 Follow these steps:
 
@@ -35,23 +42,10 @@ npm i
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## Technologies used for this project 
 
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with .
+This project is built with:
 
 - Vite
 - TypeScript
@@ -59,10 +53,10 @@ This project is built with .
 - shadcn-ui
 - Tailwind CSS
 
-## How can I deploy this project?
 
-Simply open [Lovable](https://lovable.dev/projects/900ca18c-95e7-40bb-88ad-e754b7b978ff) and click on Share -> Publish.
+## Technologies used for this project 
 
-## I want to use a custom domain - is that possible?
+For feature requests and/or feedback, please reach out to us via the social networks stated in our profiles.
 
-We don't support custom domains (yet). If you want to deploy your project under your own domain then we recommend using Netlify. Visit our docs for more details: [Custom domains](https://docs.lovable.dev/tips-tricks/custom-domain/)
+Happy using and/or editing!
+F & A 💌

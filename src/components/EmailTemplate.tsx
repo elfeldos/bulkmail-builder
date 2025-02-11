@@ -3,21 +3,38 @@ import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Alert } from '@/components/ui/alert';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { toast } from "sonner";
 
 interface EmailTemplateProps {
-  onTemplateChange: (subject: string, body: string) => void;
+  onTemplateChange: (subject: string, body: string, attachment?: File ) => void;
   availableVariables: string[];
 }
 
 export const EmailTemplate = ({ onTemplateChange, availableVariables }: EmailTemplateProps) => {
   const [subject, setSubject] = useState('');
   const [body, setBody] = useState('');
+  const [attachment, setAttachment] = useState<File | null>(null);
+  const MAX_FILE_SIZE = 5 * 1024 * 1024
+
+  const handleAttachmentChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      if(file.size > MAX_FILE_SIZE) {
+        toast.error('File size must be less than 5 MB');
+        e.target.value = ''; 
+        return;
+      }
+      setAttachment(file);
+      onTemplateChange(subject, body, file);
+    }
+  };
 
   const handleSubjectChange = (value: string) => {
     setSubject(value);
@@ -29,13 +46,6 @@ export const EmailTemplate = ({ onTemplateChange, availableVariables }: EmailTem
     onTemplateChange(subject, value);
   };
 
-  // const insertVariable = (variable: string) => {
-  //   const textArea = document.getElementById('emailBody') as HTMLTextAreaElement;
-  //   const start = textArea.selectionStart;
-  //   const end = textArea.selectionEnd;
-  //   const newBody = body.substring(0, start) + `{{${variable}}}` + body.substring(end);
-  //   handleBodyChange(newBody);
-  // };
   const insertVariable = (variable: string, field: 'subject' | 'body') => {
     if (field === 'subject') {
       const input = document.getElementById('subject') as HTMLInputElement;
@@ -58,47 +68,6 @@ export const EmailTemplate = ({ onTemplateChange, availableVariables }: EmailTem
     }
   };
 
-  // return (
-  //   <div className="space-y-4">
-  //     <div>
-  //       <Label htmlFor="subject">Email Subject</Label>
-  //       <Input
-  //         id="subject"
-  //         value={subject}
-  //         onChange={(e) => handleSubjectChange(e.target.value)}
-  //         placeholder="Enter email subject..."
-  //         className="mt-1"
-  //       />
-  //     </div>
-      
-  //     <div>
-  //       <Label htmlFor="emailBody">Email Body</Label>
-  //       <Textarea
-  //         id="emailBody"
-  //         value={body}
-  //         onChange={(e) => handleBodyChange(e.target.value)}
-  //         placeholder="Enter email body..."
-  //         className="mt-1 min-h-[200px]"
-  //       />
-  //     </div>
-
-  //     <div>
-  //       <Label>Available Variables</Label>
-  //       <div className="flex flex-wrap gap-2 mt-2">
-  //         {availableVariables.map((variable) => (
-  //           <Button
-  //             key={variable}
-  //             variant="outline"
-  //             size="sm"
-  //             onClick={() => insertVariable(variable)}
-  //           >
-  //             {variable}
-  //           </Button>
-  //         ))}
-  //       </div>
-  //     </div>
-  //   </div>
-  // );
   return (
     <div className="space-y-4">
       <div className="relative">
@@ -162,6 +131,22 @@ export const EmailTemplate = ({ onTemplateChange, availableVariables }: EmailTem
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
+      </div>
+      <div>
+        <Label htmlFor="attachment">Attachment (Optional, max 5MB)</Label>
+        <Input
+            id="attachment"
+            type="file"
+            onChange={handleAttachmentChange}
+            className="mt-2"
+            accept=".pdf,.doc,.docx,.txt,.jpg,.jpeg,.png"
+            max-size="5242880"
+          />
+          {attachment && (
+          <Alert className="mt-2">
+            Selected file: {attachment.name} ({(attachment.size / 1024 / 1024).toFixed(2)}MB)
+          </Alert>
+        )}
       </div>
     </div>
   );

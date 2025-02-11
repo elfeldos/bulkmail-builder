@@ -14,7 +14,6 @@ interface SmtpConfig {
   port: string;
   username: string;
   password: string;
-  // from: string;
 }
 
 const Index = () => {
@@ -22,14 +21,16 @@ const Index = () => {
   const [emailSubject, setEmailSubject] = useState("");
   const [emailBody, setEmailBody] = useState("");
   const [smtpConfig, setSmtpConfig] = useState<SmtpConfig | null>(null);
+  const [attachment, setAttachment] = useState<File | null>(null);
 
   const handleFileUpload = (data: Array<Record<string, string>>) => {
     setCsvData(data);
   };
 
-  const handleTemplateChange = (subject: string, body: string) => {
+  const handleTemplateChange = (subject: string, body: string, file?: File) => {
     setEmailSubject(subject);
     setEmailBody(body);
+    if (file) setAttachment(file);
   };
 
   const handleSendEmails = async () => {
@@ -40,18 +41,16 @@ const Index = () => {
       return;
     }
 
-    // console.log('Subject template:', emailSubject);
-    // console.log('Sample recipient:', csvData[0]);
-
-    // const requestData = {
-    //   recipients: csvData,
-    //   subject: emailSubject,
-    //   body: emailBody,
-    //   smtp: smtpConfig,
-    // };
-    // console.log('Request data:', requestData);
-
     toast.info("Sending emails...");
+
+    const formData = new FormData();
+    formData.append('recipients', JSON.stringify(csvData));
+    formData.append('subject', emailSubject);
+    formData.append('body', emailBody);
+    formData.append('smtp', JSON.stringify(smtpConfig));
+    if (attachment && attachment.size <= 5 * 1024 * 1024) {
+      formData.append('attachment', attachment);
+    }
 
     try {
       const response = await fetch("https://bulkmailserver-jxku.onrender.com/api/send-emails", {
@@ -59,12 +58,7 @@ const Index = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          recipients: csvData,
-          subject: emailSubject,
-          body: emailBody,
-          smtp: smtpConfig,
-        }),
+        body: formData,
       });
 
       const data = await response.json();
