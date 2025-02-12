@@ -134,17 +134,32 @@ export const EmailTemplate = ({ onTemplateChange, availableVariables }: EmailTem
       </div>
       <div>
         <Label htmlFor="attachment">Attachment (Optional, max 5MB)</Label>
-        <Input
-            id="attachment"
-            type="file"
-            onChange={handleAttachmentChange}
-            className="mt-2"
-            accept=".pdf,.doc,.docx,.txt,.jpg,.jpeg,.png"
-            max-size="5242880"
+        {!attachment ? (
+          <Input
+              id="attachment"
+              type="file"
+              onChange={handleAttachmentChange}
+              className="mt-2"
+              accept=".pdf,.doc,.docx,.txt,.jpg,.jpeg,.png"
+              max-size="5242880"
           />
-          {attachment && (
+        ) : (
           <Alert className="mt-2">
-            Selected file: {attachment.name} ({(attachment.size / 1024 / 1024).toFixed(2)}MB)
+            <div className="flex items-center justify-between">
+              <div>
+                {attachment.name} ({(attachment.size / 1024 / 1024).toFixed(2)}MB)
+              </div>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => {
+                  setAttachment(null);
+                  onTemplateChange(subject, body, undefined);
+                }}
+              >
+                Remove File
+              </Button>
+            </div>
           </Alert>
         )}
       </div>
