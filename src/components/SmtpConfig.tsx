@@ -103,7 +103,7 @@ export const SmtpConfig = ({ onConfigSave }: SmtpConfigProps) => {
   const [selectedProvider, setSelectedProvider] = useState<SmtpProvider>("gmail");
   const [customHost, setCustomHost] = useState(" ");
   const [config, setConfig] = useState<SmtpConfig>({
-    host: "",
+    host: smtpProviders.gmail.host,
     port: "587",
     username: "",
     password: "",
