@@ -52,14 +52,33 @@ const Index = () => {
       formData.append('attachment', attachment);
     }
 
+    console.log('Sending data:', {
+      recipients: csvData,
+      subject: emailSubject,
+      body: emailBody,
+      smtp: smtpConfig,
+      attachment: attachment ? {
+        name: attachment.name,
+        size: attachment.size,
+        type: attachment.type
+      } : null
+    });
+
     try {
-      const response = await fetch("https://bulkmailserver-jxku.onrender.com/api/send-emails", {
+      const response = await fetch("http://localhost:8080/api/send-emails", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        // headers: {
+        //   "Content-Type": "application/json",
+        // },
         body: formData,
       });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error('Server error:', errorData);
+        toast.error(`Error: ${errorData.message || 'Unknown error'}`);
+        return;
+      }
 
       const data = await response.json();
 
